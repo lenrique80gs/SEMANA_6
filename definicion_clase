@@ -1,0 +1,50 @@
+# Clase base: Dispositivo de red
+class DispositivoRed:
+    def __init__(self, nombre, fabricante):
+        self.nombre = nombre  # Atributo público
+        self._fabricante = fabricante  # Atributo protegido (encapsulación)
+
+    def detalles(self):
+        """Método para mostrar detalles del dispositivo"""
+        return f"Nombre: {self.nombre}, Fabricante: {self._fabricante}"
+
+# Clase derivada: Router
+class Router(DispositivoRed):
+    def __init__(self, nombre, fabricante, protocolos_soportados):
+        super().__init__(nombre, fabricante)  # Llamada al constructor de la clase base
+        self.protocolos_soportados = protocolos_soportados  # Atributo adicional
+
+    def detalles(self):
+        """Sobrescritura del método (polimorfismo)"""
+        protocolos = ", ".join(self.protocolos_soportados)
+        return f"{super().detalles()}, Protocolos soportados: {protocolos}"
+
+# Clase derivada: Switch
+class Switch(DispositivoRed):
+    def __init__(self, nombre, fabricante, puertos):
+        super().__init__(nombre, fabricante)
+        self.puertos = puertos  # Cantidad de puertos
+
+    def detalles(self):
+        """Sobrescritura del método (polimorfismo)"""
+        return f"{super().detalles()}, Puertos: {self.puertos}"
+
+# Clase derivada: Punto de Acceso
+class PuntoAcceso(DispositivoRed):
+    def __init__(self, nombre, fabricante, frecuencia):
+        super().__init__(nombre, fabricante)
+        self.frecuencia = frecuencia  # Frecuencia en GHz (e.g., 2.4 GHz, 5 GHz)
+
+    def detalles(self):
+        """Sobrescritura del método (polimorfismo)"""
+        return f"{super().detalles()}, Frecuencia: {self.frecuencia} GHz"
+
+# Instanciación de objetos
+router = Router("Router AX3000", "Asus", ["IPv4", "IPv6", "OSPF", "BGP"])
+switch = Switch("Switch 48P", "Cisco", 48)
+punto_acceso = PuntoAcceso("AP Unifi", "Ubiquiti", 5)
+
+# Uso de métodos
+print("Detalles del router:", router.detalles())
+print("Detalles del switch:", switch.detalles())
+print("Detalles del punto de acceso:", punto_acceso.detalles())
